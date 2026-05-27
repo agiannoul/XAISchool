@@ -250,9 +250,9 @@ class OptFuncionMaker:
             model_output_times=self.model_output_times,
         )
         if self.type_fn == "survival":
-            H_score = -np.log(FN_pred + self.epsilon)
+            H_score = -np.log(np.clip(FN_pred, a_min=self.epsilon, a_max=1.0))
         else:
-            H_score = np.copy(FN_pred)
+            H_score = np.clip(FN_pred, a_min=0.0, a_max=None)
         max_H_score = np.max(H_score)
         if self.max_hazard_value_allowed is None and max_H_score > self.limit_H_warning:
             logging.warning(
@@ -333,7 +333,10 @@ class OptFuncionMaker:
             if self.functional_norm <= 0:
                 raise ValueError("functional_norm must be postive number")
             is_norm_a_number = True
-            E_pow = cp.power(E_abs, self.functional_norm)
+            if self.functional_norm == 2:
+                E_pow = cp.square(E_prod)
+            else:
+                E_pow = cp.power(E_abs, self.functional_norm)
             E_result = E_pow @ delta_t
 
         elif isinstance(self.functional_norm, str):

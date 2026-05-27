@@ -98,7 +98,7 @@ class SurvLimeExplainer:
         self,
         data_row: Union[List[float], np.ndarray, pd.Series],
         predict_fn: Callable,
-        type_fn: Literal["survival", "cumulative"] = "cumulative",
+        type_fn: Literal["survival", "cumulative"] = "survival",
         num_samples: int = 1000,
         max_difference_time_allowed: Optional[float] = None,
         max_hazard_value_allowed: Optional[float] = None,
@@ -108,8 +108,8 @@ class SurvLimeExplainer:
 
         Args:
             data_row (Union[List[float], np.ndarray, pd.Series]): data point to be explained.
-            predict_fn (Callable): function that computes cumulative hazard.
-            type_fn (Literal["survival", "cumulative"]): whether predict_fn is the cumulative hazard funtion or survival function.
+            predict_fn (Callable): function that computes survival function or cumulative hazard.
+            type_fn (Literal["survival", "cumulative"]): whether predict_fn is the cumulative hazard funtion or survival function. Default is "survival".
             num_samples (int): number of neighbours to use.
             max_difference_time_allowed (Optional[float]): maximum difference between times allowed. If a difference exceeds this value, then max_difference_time_allowed will be used.
             max_hazard_value_allowed (Optional[float]): maximum hazard value allowed. If a prediction exceeds this value, then max_hazard_value_allows will be used.
@@ -309,7 +309,7 @@ class SurvLimeExplainer:
         self,
         data: Union[pd.DataFrame, pd.Series, np.ndarray, List],
         predict_fn: Callable,
-        type_fn: Literal["survival", "cumulative"] = "cumulative",
+        type_fn: Literal["survival", "cumulative"] = "survival",
         num_samples: int = 1000,
         num_repetitions: int = 10,
         max_difference_time_allowed: Optional[float] = None,
@@ -320,8 +320,8 @@ class SurvLimeExplainer:
 
         Args:
             data (Union[pd.DataFrame, pd.Series, np.ndarray, List]): data points to be explained.
-            predict_fn (Callable): function that computes cumulative hazard.
-            type_fn (Literal["survival", "cumulative"]): whether predict_fn is the cumulative hazard funtion or survival function.
+            predict_fn (Callable): function that computes survival function or cumulative hazard.
+            type_fn (Literal["survival", "cumulative"]): whether predict_fn is the cumulative hazard funtion or survival function. Default is "survival".
             num_samples (int): number of neighbours to use.
             num_repetitions (int): number of times to repeat the explanation.
             max_difference_time_allowed (Optional[float]): maximum difference between times allowed. If a difference exceeds this value, then max_difference_time_allowed will be used.

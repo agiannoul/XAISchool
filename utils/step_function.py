@@ -18,7 +18,7 @@ def transform_step_function(
     total_columns = len(sample_value.y)
     matrix_values = np.empty(shape=(total_rows, total_columns))
     for i, step_fn in enumerate(array_step_functions):
-        matrix_values[i] = step_fn(step_fn.x)
+        matrix_values[i] = step_fn.y
     if return_column_vector:
         n_rows, n_cols = matrix_values.shape
         if n_rows == 1 and n_cols >= 1:
